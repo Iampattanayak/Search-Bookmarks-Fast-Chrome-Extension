@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Bookmarks Fast</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+
+    <!-- 3D Scene Wrapper -->
+    <div class="scene">
+        <div class="card" id="main-card">
+
+            <!-- FRONT: Search Interface -->
+            <div class="card-face section-front">
+                <div id="search-container">
+                    <input type="text" id="input" placeholder="Type to search..." autocomplete="off">
+                    <div id="gear-btn" title="Settings">⚙️</div>
+                </div>
+                <ul id="results"></ul>
+                <div id="empty-state">No bookmarks found</div>
+            </div>
+
+            <!-- BACK: Settings Interface -->
+            <div class="card-face section-back">
+                <div class="settings-header">
+                    <h3>Settings</h3>
+                    <button id="close-settings">Done</button>
+                </div>
+                <div class="settings-content">
+                    <p class="settings-label">Ignored Folders</p>
+                    <p class="settings-sub">Uncheck to remove from search results.</p>
+                    <div id="folder-list">
+                        <!-- Checkboxes generated here -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="toast">Copied!</div>
+    <script src="popup.js"></script>
+</body>
+
+</html>

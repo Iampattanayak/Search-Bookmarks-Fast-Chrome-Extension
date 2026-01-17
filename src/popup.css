@@ -1,0 +1,282 @@
+:root {
+  --bg-main: #0a192f;
+  /* Deepest Navy */
+  --header-bg: rgba(10, 25, 47, 0.85);
+  /* Frosted header */
+  --card-bg: #112240;
+  /* Light Navy */
+  --card-hover: #233554;
+  /* Lighter Navy */
+  --text-primary: #ccd6f6;
+  /* Pale Blue/White */
+  --text-secondary: #8892b0;
+  /* Muted Blue */
+  --accent-cyan: #64ffda;
+  /* Bright Accent */
+  --accent-blue: #3b82f6;
+  /* Royal Blue Accent */
+  --scrollbar-thumb: #495670;
+  --transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+body {
+  width: 400px;
+  max-height: 600px;
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* -------------------------------------------
+   Sticky Header with Frosted Glass
+------------------------------------------- */
+#search-container {
+  position: sticky;
+  top: 0;
+  padding: 16px;
+  background-color: var(--header-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  /* Safari support */
+  z-index: 100;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+input#input {
+  width: 100%;
+  padding: 14px 18px;
+  font-size: 15px;
+  border: 2px solid transparent;
+  /* Prepare for gradient or solid */
+  border-radius: 12px;
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  transition: var(--transition);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+}
+
+input#input::placeholder {
+  color: #586a8a;
+  font-style: italic;
+}
+
+input#input:focus {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+  transform: scale(1.01);
+}
+
+/* -------------------------------------------
+   Floating Results List
+------------------------------------------- */
+ul#results {
+  list-style: none;
+  padding: 12px 16px;
+  margin: 0;
+  overflow-y: auto;
+  max-height: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: 20px;
+}
+
+/* Thin Blue Scrollbar */
+ul#results::-webkit-scrollbar {
+  width: 6px;
+}
+
+ul#results::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+ul#results::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb);
+  border-radius: 10px;
+  border: 2px solid var(--bg-main);
+  /* Creates padding effect */
+}
+
+ul#results::-webkit-scrollbar-thumb:hover {
+  background-color: var(--text-secondary);
+}
+
+/* -------------------------------------------
+   Card Styling & Animation
+------------------------------------------- */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+li {
+  display: flex;
+  align-items: center;
+  padding: 14px;
+  border-radius: 12px;
+  background-color: var(--card-bg);
+  cursor: pointer;
+
+  /* Floating Effect */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.02);
+
+  /* Animation */
+  animation: slideUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  transition: var(--transition);
+  gap: 12px;
+}
+
+li:hover {
+  transform: translateY(-4px) scale(1.01);
+  background-color: var(--card-hover);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+li.selected {
+  background: linear-gradient(135deg, var(--accent-blue), #2563eb);
+  color: white;
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+}
+
+/* -------------------------------------------
+   Inner Content
+------------------------------------------- */
+.favicon {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 2px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  overflow: hidden;
+  flex: 1;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #e6f1ff;
+}
+
+.folder {
+  font-size: 11px;
+  color: var(--text-secondary);
+  font-family: 'Fira Code', monospace;
+  /* Tech vibe */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+}
+
+/* Selected Text Adjustments */
+li.selected .title {
+  color: #fff;
+}
+
+li.selected .folder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* -------------------------------------------
+   Shortcuts & Badges
+------------------------------------------- */
+.shortcut-key {
+  margin-left: auto;
+  background-color: rgba(100, 255, 218, 0.1);
+  color: var(--accent-cyan);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-family: 'Fira Code', monospace;
+  font-size: 12px;
+  border: 1px solid rgba(100, 255, 218, 0.2);
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+
+li.selected .shortcut-key {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.alt-shortcuts {
+  display: none;
+  width: 100%;
+  padding-top: 8px;
+  padding-left: 36px;
+  font-size: 11px;
+  color: var(--text-secondary);
+  animation: slideUp 0.2s ease-out;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.alt-shortcuts.visible {
+  display: flex;
+}
+
+.alt-chip {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  padding: 2px 6px;
+  cursor: pointer;
+  transition: var(--transition);
+  font-family: 'Fira Code', monospace;
+  color: var(--text-secondary);
+}
+
+.alt-chip:hover {
+  background-color: var(--accent-blue);
+  color: white;
+  border-color: var(--accent-blue);
+  transform: translateY(-1px);
+}
+
+.alt-chip.active {
+  background-color: rgba(100, 255, 218, 0.2);
+  color: var(--accent-cyan);
+  border-color: var(--accent-cyan);
+}
+
+/* -------------------------------------------
+   Empty State
+------------------------------------------- */
+#empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-secondary);
+  font-size: 15px;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+  animation: slideUp 0.4s ease-out;
+}
